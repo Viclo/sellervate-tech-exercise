@@ -8,6 +8,7 @@ export type QueueItem = {
   id: string;
   brandName: string;
   brandSlug: string;
+  responseTargetMinutes: number;
   specialistName: string;
   specialistRecentReviews: number;
   channel: string;
@@ -37,6 +38,7 @@ export async function getReviewQueue(brandSlug?: string): Promise<QueueItem[]> {
             id: row.id,
             brandName: row.brand_name ?? "",
             brandSlug: row.brand_slug ?? "",
+            responseTargetMinutes: row.response_target_minutes ?? 1440,
             specialistName: row.specialist_name ?? "",
             specialistRecentReviews: row.specialist_recent_reviews ?? 0,
             channel: row.channel ?? "",
@@ -57,7 +59,7 @@ export async function getNextQueueItemId(): Promise<string | null> {
 
 const REPLY_SELECT = `
   id, subject, channel, customer_name, customer_message, reply_body, received_at, sent_at,
-  brand:brands(id, name, slug, voice_summary, procedures),
+  brand:brands(id, name, slug, voice_summary, procedures, response_target_minutes),
   specialist:profiles!replies_specialist_id_fkey(id, full_name),
   reviews(
     id, score, comment, is_exemplar, created_at,

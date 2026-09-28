@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { getCurrentUser } from "@/lib/auth/current-user";
-import { SLOW_RESPONSE_MINUTES, formatDateTime, formatDuration, responseMinutes } from "@/lib/format";
+import { formatDateTime, formatDuration, responseMinutes } from "@/lib/format";
 import { getReviewQueue } from "@/lib/reviews/queries";
 
 export default async function QueuePage({ searchParams }: PageProps<"/queue">) {
@@ -86,7 +86,7 @@ export default async function QueuePage({ searchParams }: PageProps<"/queue">) {
                     <div className="sm:col-span-3 sm:text-right">
                       <p>{formatDateTime(item.sentAt)}</p>
                       <p
-                        className={`text-caption ${minutes > SLOW_RESPONSE_MINUTES ? "font-medium text-error" : "text-secondary"}`}
+                        className={`text-caption ${minutes > item.responseTargetMinutes ? "font-medium text-error" : "text-secondary"}`}
                       >
                         Answered in {formatDuration(minutes)}
                       </p>

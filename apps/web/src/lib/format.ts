@@ -24,6 +24,3 @@ export function formatDuration(minutes: number) {
   if (hours < 48) return `${Math.round(hours)} h`;
   return `${Math.round(hours / 24)} days`;
 }
-
-/** Past a working day, a first reply is slow for every brand we have today. */
-export const SLOW_RESPONSE_MINUTES = 24 * 60;

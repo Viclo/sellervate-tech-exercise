@@ -3,7 +3,7 @@ import { notFound } from "next/navigation";
 import { Procedures } from "@/components/procedures";
 import { ScoreBadge } from "@/components/score-badge";
 import { getCurrentUser } from "@/lib/auth/current-user";
-import { SLOW_RESPONSE_MINUTES, formatDateTime, formatDuration, responseMinutes } from "@/lib/format";
+import { formatDateTime, formatDuration, responseMinutes } from "@/lib/format";
 import { getReply, getReviewTags, type ReplyWithReview } from "@/lib/reviews/queries";
 import { SEVERITY_CLASSES, asSeverity, scoreLabel } from "@/lib/reviews/scores";
 import { ReviewForm } from "./review-form";
@@ -35,8 +35,12 @@ export default async function ReplyPage({ params }: PageProps<"/replies/[id]">) 
           </span>
           <span>Sent by {reply.specialist.full_name}</span>
           <span>{formatDateTime(reply.sent_at)}</span>
-          <span className={minutes > SLOW_RESPONSE_MINUTES ? "font-medium text-error" : undefined}>
+          <span className={minutes > reply.brand.response_target_minutes ? "font-medium text-error" : undefined}>
             Answered in {formatDuration(minutes)}
+            <span className="text-secondary font-normal">
+              {" "}
+              (target {formatDuration(reply.brand.response_target_minutes)})
+            </span>
           </span>
         </p>
       </header>
