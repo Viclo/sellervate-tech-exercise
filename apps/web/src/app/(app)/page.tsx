@@ -1,8 +1,10 @@
+import { redirect } from "next/navigation";
 import { getCurrentUser } from "@/lib/auth/current-user";
 
 export default async function HomePage() {
   const user = await getCurrentUser();
   if (!user) return null;
+  if (user.isLead) redirect("/queue");
 
   return (
     <section className="space-y-6">

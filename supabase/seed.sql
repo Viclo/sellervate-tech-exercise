@@ -44,22 +44,22 @@ insert into public.profiles (id, full_name)
 select id, raw_user_meta_data ->> 'full_name' from auth.users;
 
 -- ---------------------------------------------------------------- brands
-insert into public.brands (id, slug, name, voice_summary, procedures) values
-('c0000000-0000-4000-8000-000000000001', 'voltra', 'Voltra',
+insert into public.brands (id, slug, name, response_target_minutes, voice_summary, procedures) values
+('c0000000-0000-4000-8000-000000000001', 'voltra', 'Voltra', 720,
  'Electric scooters. Friendly and technical: diagnose first, explain in plain words, one clear next step.',
 $md$1. **Diagnose before offering a return or refund.** Ask for model, firmware version and error code, or a short video. Half of the complaints are usage issues.
 2. **Check the order history and warranty date** before promising anything.
 3. Voltra scooters are **IP54 (splash resistant), not waterproof.** Never say otherwise. Never tell a customer to open the battery.
 4. Offer a return only if troubleshooting fails, or if the unit was dead on arrival within 14 days.
 5. Sign off as: *Ride safe, <first name> · Voltra Support*$md$),
-('c0000000-0000-4000-8000-000000000002', 'boxwell', 'Boxwell',
+('c0000000-0000-4000-8000-000000000002', 'boxwell', 'Boxwell', 240,
  'B2B packaging supplier. Fast, exact, three lines. No small talk.',
 $md$1. **Reply within 4 business hours.**
 2. **Always confirm SKU, quantity and delivery date** in the reply.
 3. **Three lines maximum** plus signature. No emojis, no marketing.
 4. Check the order in the ERP before confirming any date.
 5. Invoice or VAT changes go to billing@boxwell.test, and you tell the customer you did it.$md$),
-('c0000000-0000-4000-8000-000000000003', 'lumen', 'Lumen',
+('c0000000-0000-4000-8000-000000000003', 'lumen', 'Lumen', 1440,
  'Skincare, direct to consumer. Warm and reassuring, careful with every claim.',
 $md$1. **No medical claims.** Never say a product treats, cures or is safe for a condition or pregnancy. Refer to a doctor.
 2. For a skin reaction: tell them to stop using it, offer a refund or replacement, and **do not ask for the product back.**
