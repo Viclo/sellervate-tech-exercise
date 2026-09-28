@@ -96,3 +96,43 @@ export async function getReviewTags(brandId: string) {
 }
 
 export type ReviewTag = Awaited<ReturnType<typeof getReviewTags>>[number];
+
+/** The caller's own reviewed replies, newest first. RLS already limits a specialist to these. */
+export async function getMyReviews(userId: string) {
+  const supabase = await createClient();
+  const { data, error } = await supabase
+    .from("replies")
+    .select(
+      `id, subject, customer_name, sent_at,
+       brand:brands(name),
+       reviews!inner(score, comment, is_exemplar, created_at,
+         review_tag_links(tag:review_tags(id, label, severity)))`,
+    )
+    // Explicit on top of RLS: someone who is also a lead would otherwise see their brands' replies too.
+    .eq("specialist_id", userId)
+    .order("sent_at", { ascending: false })
+    .limit(50);
+  if (error) throw error;
+  return data;
+}
+
+/**
+ * Reviews of one brand over the last `weeks` weeks. Aggregated in the app for now:
+ * a few hundred rows per brand. At real volume this becomes a daily rollup in SQL.
+ */
+export async function getBrandReviews(brandId: string, weeks: number) {
+  const supabase = await createClient();
+  const since = new Date(Date.now() - weeks * 7 * 24 * 60 * 60 * 1000).toISOString();
+  const { data, error } = await supabase
+    .from("reviews")
+    .select(
+      `id, score, is_exemplar, created_at,
+       reply:replies!reviews_reply_brand_fkey(id, subject),
+       review_tag_links(tag:review_tags(id, label, severity))`,
+    )
+    .eq("brand_id", brandId)
+    .gte("created_at", since)
+    .order("created_at", { ascending: true });
+  if (error) throw error;
+  return data;
+}

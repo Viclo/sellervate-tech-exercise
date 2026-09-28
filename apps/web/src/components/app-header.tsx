@@ -5,7 +5,10 @@ import { NavLinks, type NavItem } from "./nav-links";
 export function AppHeader({ user }: { user: CurrentUser }) {
   const roleLabel = user.isLead ? "Team lead" : "Specialist";
   const navItems: NavItem[] = [];
-  if (user.isLead) navItems.push({ href: "/queue", label: "Review queue" });
+  if (user.isLead) {
+    navItems.push({ href: "/queue", label: "Review queue" }, { href: "/brands", label: "Brands" });
+  }
+  if (user.isSpecialist) navItems.push({ href: "/me", label: "My reviews" });
 
   return (
     <header className="border-b border-base-300 bg-base-100">
