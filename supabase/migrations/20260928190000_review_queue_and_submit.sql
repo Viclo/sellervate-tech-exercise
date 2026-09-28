@@ -10,6 +10,7 @@ select
   r.brand_id,
   b.name       as brand_name,
   b.slug       as brand_slug,
+  b.response_target_minutes,
   r.specialist_id,
   p.full_name  as specialist_name,
   r.channel,

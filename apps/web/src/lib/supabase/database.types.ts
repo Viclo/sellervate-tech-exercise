@@ -32,13 +32,13 @@ isOneToOne: false
                   ]
                 },"brands": {
                   Row: {
-                    "created_at": string,"id": string,"name": string,"procedures": string,"slug": string,"voice_summary": string
+                    "created_at": string,"id": string,"name": string,"procedures": string,"response_target_minutes": number,"slug": string,"voice_summary": string
                   }
                   Insert: {
-                    "created_at"?: string,"id"?: string,"name": string,"procedures"?: string,"slug": string,"voice_summary"?: string
+                    "created_at"?: string,"id"?: string,"name": string,"procedures"?: string,"response_target_minutes"?: number,"slug": string,"voice_summary"?: string
                   }
                   Update: {
-                    "created_at"?: string,"id"?: string,"name"?: string,"procedures"?: string,"slug"?: string,"voice_summary"?: string
+                    "created_at"?: string,"id"?: string,"name"?: string,"procedures"?: string,"response_target_minutes"?: number,"slug"?: string,"voice_summary"?: string
                   }
                   Relationships: [
                     
@@ -161,7 +161,7 @@ isOneToOne: false
           Views: {
             "review_queue": {
                   Row: {
-                    "brand_id": string | null,"brand_name": string | null,"brand_slug": string | null,"channel": string | null,"customer_name": string | null,"id": string | null,"received_at": string | null,"sent_at": string | null,"specialist_id": string | null,"specialist_name": string | null,"specialist_recent_reviews": number | null,"subject": string | null
+                    "brand_id": string | null,"brand_name": string | null,"brand_slug": string | null,"channel": string | null,"customer_name": string | null,"id": string | null,"received_at": string | null,"response_target_minutes": number | null,"sent_at": string | null,"specialist_id": string | null,"specialist_name": string | null,"specialist_recent_reviews": number | null,"subject": string | null
                   }
                   Relationships: [
                     {
