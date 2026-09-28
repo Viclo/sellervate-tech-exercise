@@ -5,6 +5,7 @@ export default async function HomePage() {
   const user = await getCurrentUser();
   if (!user) return null;
   if (user.isLead) redirect("/queue");
+  if (user.isSpecialist) redirect("/me");
 
   return (
     <section className="space-y-6">
