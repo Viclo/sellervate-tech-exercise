@@ -22,8 +22,8 @@ export default async function ReplyPage({ params }: PageProps<"/replies/[id]">) 
 
   return (
     <article className="space-y-6">
-      <Link href={leadsThisBrand ? "/queue" : "/"} className="text-caption text-secondary hover:text-base-content">
-        ← {leadsThisBrand ? "Review queue" : "Back"}
+      <Link href={leadsThisBrand ? "/queue" : "/me"} className="text-caption text-secondary hover:text-base-content">
+        ← {leadsThisBrand ? "Review queue" : "My reviews"}
       </Link>
 
       <header className="space-y-2">
