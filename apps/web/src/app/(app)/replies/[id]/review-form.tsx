@@ -14,12 +14,14 @@ export function ReviewForm({ replyId, tags }: { replyId: string; tags: ReviewTag
     <form action={formAction} className="space-y-6">
       <input type="hidden" name="replyId" value={replyId} />
 
+      {/* No native `required`: the radios are visually hidden, so the browser's tooltip would point
+          at nothing and the button would silently do nothing. The server returns a visible error. */}
       <fieldset className="space-y-2">
         <legend className="font-medium">How good was it?</legend>
         <div className="grid grid-cols-5 gap-1.5">
           {SCORES.map((score) => (
             <label key={score.value} className="cursor-pointer" title={score.label}>
-              <input type="radio" name="score" value={score.value} required className="peer sr-only" />
+              <input type="radio" name="score" value={score.value} className="peer sr-only" />
               <span className="flex flex-col items-center gap-0.5 rounded-field border border-base-300 bg-base-100 px-1 py-2 text-center transition-colors peer-checked:border-primary peer-checked:bg-primary/10 peer-focus-visible:ring-2 peer-focus-visible:ring-primary hover:bg-base-200">
                 <span className="text-lead font-semibold">{score.value}</span>
                 <span className="text-caption text-secondary">{score.short}</span>
