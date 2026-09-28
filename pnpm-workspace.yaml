@@ -1,0 +1,6 @@
+packages:
+  - "apps/*"
+
+# pnpm 10+: allow the Supabase CLI postinstall (downloads its binary)
+onlyBuiltDependencies:
+  - supabase
