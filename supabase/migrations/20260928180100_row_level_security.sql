@@ -2,8 +2,10 @@
 -- session, and PostgREST is reachable by anyone holding that key, so these policies are
 -- the only thing that actually decides who sees what.
 
--- Anonymous callers get nothing, regardless of policies.
+-- Anonymous callers get nothing, regardless of policies: neither on the tables that exist
+-- now nor on tables and views created by later migrations (Supabase grants anon by default).
 revoke all on all tables in schema public from anon;
+alter default privileges in schema public revoke all on tables from anon;
 
 -- Membership helpers. security definer so policies on brand_memberships can use them
 -- without recursing into their own policy. They only ever return a boolean.
