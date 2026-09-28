@@ -143,6 +143,12 @@ isOneToOne: false
       referencedRelation: "replies"
       referencedColumns: ["id","brand_id"]
     },{
+      foreignKeyName: "reviews_reply_brand_fkey"
+      columns: ["reply_id","brand_id"]
+isOneToOne: false
+      referencedRelation: "review_queue"
+      referencedColumns: ["id","brand_id"]
+    },{
       foreignKeyName: "reviews_reviewer_id_fkey"
       columns: ["reviewer_id"]
 isOneToOne: false
@@ -153,7 +159,26 @@ isOneToOne: false
                 }
           }
           Views: {
-            [_ in never]: never
+            "review_queue": {
+                  Row: {
+                    "brand_id": string | null,"brand_name": string | null,"brand_slug": string | null,"channel": string | null,"customer_name": string | null,"id": string | null,"received_at": string | null,"sent_at": string | null,"specialist_id": string | null,"specialist_name": string | null,"specialist_recent_reviews": number | null,"subject": string | null
+                  }
+                  Relationships: [
+                    {
+      foreignKeyName: "replies_brand_id_fkey"
+      columns: ["brand_id"]
+isOneToOne: false
+      referencedRelation: "brands"
+      referencedColumns: ["id"]
+    },{
+      foreignKeyName: "replies_specialist_id_fkey"
+      columns: ["specialist_id"]
+isOneToOne: false
+      referencedRelation: "profiles"
+      referencedColumns: ["id"]
+    }
+                  ]
+                }
           }
           Functions: {
             "is_brand_lead":
@@ -161,6 +186,9 @@ isOneToOne: false
                            },
 "is_brand_member":
 { Args: { "p_brand_id": string }; Returns: boolean
+                           },
+"submit_review":
+{ Args: { "p_comment": string,"p_is_exemplar": boolean,"p_reply_id": string,"p_score": number,"p_tag_ids": (string)[] }; Returns: string
                            }
           }
           Enums: {
